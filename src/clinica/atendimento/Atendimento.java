@@ -1,29 +1,29 @@
 package clinica.atendimento;
 
-import clinica.cadastro.Paciente;
+import clinica.cadastro.Pessoa;
 import clinica.cadastro.Profissional;
 
 public class Atendimento {
 
     private Profissional profissional;
-    private Paciente paciente;
 
-    public Atendimento(Profissional profissional, Paciente paciente) {
+    public Atendimento(Profissional profissional) throws ProfissionalIndisponivel {
 
-        if (!profissional.dispinivel()) {
-            System.out.println("Indisponivel ou ocupado.");
-            return;
+        if (!profissional.isDisponivel()) {
+            throw new ProfissionalIndisponivel("Erro: Profissional indisponivel para atendimento");
         }
 
         this.profissional = profissional;
-        this.paciente = paciente;
+        this.profissional.setDisponibilidade(false);
 
-        profissional.disponibilidade(false);
-        System.out.println("Atendimento iniciado.");
+        String nome = (profissional instanceof Pessoa) ? ((Pessoa) profissional).getNome() : "Profissional";
+        System.out.println();
+        System.out.println("Atendimento em andamento com " + nome + "...");
+        System.out.println("Atendimento registrado com sucesso.");
     }
 
-    public void finalizarAtendimento() {
-        profissional.disponibilidade(true);
-        System.out.println("Atendimento encerrado.");
+    public void cancelarAtendimento() {
+        this.profissional.setDisponibilidade(true);
+        System.out.println("Atendimento cancelado com sucesso.");
     }
 }

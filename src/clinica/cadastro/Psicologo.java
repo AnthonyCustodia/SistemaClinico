@@ -2,27 +2,31 @@ package clinica.cadastro;
 
 public class Psicologo extends Pessoa implements Profissional {
 
-    private String crp;
-    private String especialidade;
+    private final String crp;
+    private final String abordagem;
+    private boolean disponivel = true;
 
-    public Psicologo(String nome, String crp, String especialidade) {
+    public Psicologo(String nome, String crp, String abordagem) {
         super(nome);
         this.crp = crp;
-        this.especialidade = especialidade;
+        this.abordagem = abordagem;
     }
 
     @Override
     public void exibirDados() {
-        super.exibirDados();
+        System.out.println("Medico: " + getNome());
+        System.out.println("Registro: " + crp);
+        System.out.println("Abordagem: " + abordagem);
+        System.out.println("Disponivel: " + disponivel);
     }
 
     @Override
-    public void disponibilidade(boolean status) {
-
+    public void setDisponibilidade(boolean status) {
+        this.disponivel = status;
     }
 
     @Override
-    public boolean dispinivel() {
-        return false;
+    public boolean isDisponivel() {
+        return this.disponivel;
     }
 }
